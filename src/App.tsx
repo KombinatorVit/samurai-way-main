@@ -25,8 +25,8 @@ function App(props: any) {
                     {/*<Route path='/music' component={Music}/>*/}
                     {/*<Route path='/news' component={News}/>*/}
                     {/*<Route path='/settings' component={Settings}/>*/}
-                    <Route path="/dialogs" render={() => <Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
-                    <Route path="/profile" render={() => <Profile posts={props.posts}/>}/>
+                    <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogsPage}/>}/>
+                    <Route path="/profile" render={() => <Profile state={props.state.profilePage}/>}/>
 
 
                 </div>
