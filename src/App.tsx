@@ -9,7 +9,10 @@ import Music from './Components/Music/Music';
 import News from './Components/News/News';
 import Settings from './Components/Settings/Settings';
 
-function App() {
+function App(props: any) {
+
+
+
     return (
 
         <BrowserRouter>
@@ -22,9 +25,8 @@ function App() {
                     {/*<Route path='/music' component={Music}/>*/}
                     {/*<Route path='/news' component={News}/>*/}
                     {/*<Route path='/settings' component={Settings}/>*/}
-                    <Route path='/dialogs' render={()=><Dialogs/>}/>
-                    <Route path='/profile' render={()=><Profile/>}/>
-
+                    <Route path="/dialogs" render={() => <Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+                    <Route path="/profile" render={() => <Profile posts={props.posts}/>}/>
 
 
                 </div>
