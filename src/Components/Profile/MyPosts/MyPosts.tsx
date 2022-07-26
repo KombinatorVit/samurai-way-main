@@ -13,7 +13,8 @@ let newPostElement: any  = React.createRef()
 
     const addPostButtonHandler = () => {
 let text = newPostElement.current.value
-alert(text)
+props.addPost(text)
+
 }
     return (
         <div className={s.postsBlock}>

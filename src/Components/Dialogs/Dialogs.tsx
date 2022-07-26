@@ -24,7 +24,8 @@ const Dialogs = (props: any) => {
             </div>
             <div className={s.messages}>
                 {messageElements}
-
+                <textarea>  Введите текст </textarea>
+                <button onClick={() => {alert('Kis kis')}}>Отправить сообщение</button>
             </div>
         </div>
     );
