@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import state, {addPost} from './redux/state';
+import {rerenderEntireTree} from './render';
 
 // addPost('Hello Man')
 
-ReactDOM.render(
-    <App state={state} addPost={addPost}/>,
-  document.getElementById('root')
-);
+rerenderEntireTree(state);

@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from '../render';
+
 let state = {
     profilePage: {
         posts: [
@@ -38,7 +40,7 @@ let newPost = {
 }
 
     state.profilePage.posts.push(newPost)
-
+    rerenderEntireTree(state)
 }
 
 export default state;

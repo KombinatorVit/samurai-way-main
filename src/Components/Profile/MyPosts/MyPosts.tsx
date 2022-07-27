@@ -14,6 +14,7 @@ let newPostElement: any  = React.createRef()
     const addPostButtonHandler = () => {
 let text = newPostElement.current.value
 props.addPost(text)
+        newPostElement.current.value =''
 
 }
     return (
