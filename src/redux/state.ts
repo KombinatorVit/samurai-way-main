@@ -2,7 +2,37 @@
 let rerenderEntireTree = (props:any)  => console.log('State is changed')
 
 
-let state = {
+type MessagesType = {
+    id: number
+    message: string
+}
+type DialogsType = {
+    id: number
+    name: string
+}
+type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+type DialogsPageType = {
+    messages: Array<MessagesType>
+    dialogs: Array<DialogsType>
+
+}
+
+type ProfilePageType ={
+    posts: Array<PostType>
+    newPostText: string
+}
+
+type StateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+
+}
+
+let state : StateType = {
     profilePage: {
         posts: [
             {id: 1, message: 'Hi, how are you?', likesCount: 12},
@@ -30,9 +60,8 @@ let state = {
             {id: 6, name: 'Misha'}],
     }
 
-};
-sidebar : {
 }
+
 
 
 export const addPost = () => {
