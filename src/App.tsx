@@ -28,9 +28,8 @@ function App(props: any) {
                            render={() => <Dialogs state={props.state.dialogsPage}/>}/>
                     <Route path="/profile"
                            render={() => <Profile profilePage={props.state.profilePage}
-                                                                  addPost={props.addPost}
+                                                  dispatch={props.dispatch}
 
-                                                                  updateNewPostText={props.updateNewPostText}
                     />}/>
 
 

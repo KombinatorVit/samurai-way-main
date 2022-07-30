@@ -58,15 +58,21 @@ let store = {
         }
 
     },
-    getState(){
-        return this._state
-    },
 
     _callSubscriber(props: any) {
         console.log('State is changed');
     },
+    getState() {
+        return this._state;
+    },
+    subscribe(observer: any) {
+        this._callSubscriber = observer;
+    },
 
-    addPost() {
+
+
+    dispatch(action: any){
+    if(action.type === 'ADD-POST'){
         let newPost = {
             id: 5,
             message: this._state.profilePage.newPostText,
@@ -76,14 +82,10 @@ let store = {
         this._state.profilePage.posts.push(newPost);
         this._state.profilePage.newPostText = '';
         this._callSubscriber(this._state);
-    },
-
-    updateNewPostText(newText: any) {
-        this._state.profilePage.newPostText = newText;
+} else if (action.type ==='UPDATE-NEW-POST-TEXT'){
+        this._state.profilePage.newPostText = action.newText;
         this._callSubscriber(this._state);
-    },
-    subscribe(observer: any) {
-        this._callSubscriber = observer;
+    }
     }
 };
 
