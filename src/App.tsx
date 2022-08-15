@@ -14,7 +14,6 @@ function App(props: any) {
 
     return (
 
-        <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
@@ -25,14 +24,13 @@ function App(props: any) {
                     {/*<Route path='/news' component={News}/>*/}
                     {/*<Route path='/settings' component={Settings}/>*/}
                     <Route path="/dialogs"
-                           render={() => <DialogsContainer store={props.store} />}/>
+                           render={() => <DialogsContainer  />}/>
                     <Route path="/profile"
-                           render={() => <Profile store={props.store}/>}/>
+                           render={() => <Profile />}/>
 
 
                 </div>
             </div>
-        </BrowserRouter>
     );
 
 
