@@ -6,9 +6,10 @@ type MessagesType = {
     id: number
     message: string
 }
-type DialogsType = {
+export type DialogsType = {
     id: number
     name: string
+    newMessageBody:string
 }
 export type PostType = {
     id: number
@@ -26,7 +27,7 @@ type ProfilePageType = {
     newPostText: string
 }
 
-type StateType = {
+export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 
