@@ -8,6 +8,7 @@ import Music from './Components/Music/Music';
 import News from './Components/News/News';
 import Settings from './Components/Settings/Settings';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
+import Users from './Components/Users/Users';
 
 function App(props: any) {
 
@@ -28,6 +29,8 @@ function App(props: any) {
                     <Route path="/profile"
                            render={() => <Profile />}/>
 
+                    <Route path="/users"
+                           render={() => <Users />}/>
 
                 </div>
             </div>
