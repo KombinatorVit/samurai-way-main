@@ -12,21 +12,21 @@ import {DialogsType, StateType} from '../../redux/store';
 
 const Dialogs = (props: any) => {
 
-let state = props.dialogsPage;
-    let dialogElements = state.dialogs.map((d: any) => <DialogItem name={d.name} id={d.id}/>);
+    let state = props.dialogsPage;
+    let dialogElements = state.dialogs.map((d: any) => <DialogItem name={d.name} id={d.id} key={d.id}/>);
 
-    let messageElements = state.messages.map((m: any) => <Message message={m.message} id={m.id}/>);
-    let newMessageBody = state.newMessageBody
+    let messageElements = state.messages.map((m: any) => <Message message={m.message} id={m.id} key={m.id}/>);
+    let newMessageBody = state.newMessageBody;
 
 
     let onSendMessageClick = () => {
         props.sendMessage();
 
-    }
-    let onNewMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-let body = e.currentTarget.value
-        props.updateNewMessageBody(body)
-    }
+    };
+    let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.currentTarget.value;
+        props.updateNewMessageBody(body);
+    };
 
     return (
         <div className={s.dialogs}>
@@ -40,7 +40,7 @@ let body = e.currentTarget.value
                 <div>
                     <div><textarea value={newMessageBody}
                                    onChange={onNewMessageChange}
-                                   placeholder='Enter your message'>  Введите текст </textarea></div>
+                                   placeholder="Enter your message">  Введите текст </textarea></div>
                     <div>
                         <button onClick={onSendMessageClick}>Send
                         </button>
