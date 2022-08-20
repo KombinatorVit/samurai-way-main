@@ -8,7 +8,7 @@ import Music from './Components/Music/Music';
 import News from './Components/News/News';
 import Settings from './Components/Settings/Settings';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
-import Users from './Components/Users/Users';
+import UsersContainer from './Components/Users/UsersContainer';
 
 function App(props: any) {
 
@@ -30,7 +30,7 @@ function App(props: any) {
                            render={() => <Profile />}/>
 
                     <Route path="/users"
-                           render={() => <Users />}/>
+                           render={() => <UsersContainer />}/>
 
                 </div>
             </div>
