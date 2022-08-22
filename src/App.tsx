@@ -1,9 +1,8 @@
 import React from 'react';
 import './App.css';
 import Navbar from './Components/Navbar/Navbar';
-import Header from './Components/Header/Header';
-import Profile from './Components/Profile/Profile';
-import {BrowserRouter, Route} from 'react-router-dom';
+
+import {Route} from 'react-router-dom';
 import Music from './Components/Music/Music';
 import News from './Components/News/News';
 import Settings from './Components/Settings/Settings';
