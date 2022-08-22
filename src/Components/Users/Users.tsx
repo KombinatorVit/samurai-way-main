@@ -18,7 +18,7 @@ let Users = (props: any) => {
             {pages.map((p:any) => {
                 // @ts-ignore
                 return <span className={props.currentPage === p && styles.selectedPage}
-                             onClick={(e) => {
+                             onClick={() => {
                                  props.onPageChanged(p);
                              }}>{p}</span>
             })}
@@ -29,13 +29,13 @@ let Users = (props: any) => {
                     <div>
                        <NavLink to={'/profile/' + u.id}>
                         <img src={u.photos.small != null ? u.photos.small : userPhoto}
-                             className={styles.userPhoto}/>
+                             className={styles.userPhoto} alt={'foto'}/>
                        </NavLink>
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {
-
+                            ? <button  disabled={props.followingInProgress} onClick={() => {
+props.toggleFollowingProgress(true, u.id)
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                     withCredentials: true,
                                     headers: {
@@ -46,23 +46,28 @@ let Users = (props: any) => {
                                         if (response.data.resultCode == 0) {
                                             props.unfollow(u.id);
                                         }
+                                        props.toggleFollowingProgress(false, u.id)
+
                                     });
 
 
 
                             }}>Unfollow</button>
-                            : <button onClick={() => {
+                            : <button disabled={props.followingInProgress} onClick={() => {
+                                props.toggleFollowingProgress(true, u.id)
 
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                     withCredentials: true,
                                     headers: {
-                                        "API-KEY": "b1775b2f-c3a5-4509-8dc9-90b5629de7c3"
+                                        "API-KEY": "17d54870-a5d6-48a5-87bc-30e6241cf46f"
                                     }
                                 })
                                     .then((response: any) => {
                                         if (response.data.resultCode == 0) {
                                             props.follow(u.id);
                                         }
+                                        props.toggleFollowingProgress(false, u.id)
+
                                     });
 
 
