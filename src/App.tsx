@@ -11,7 +11,9 @@ import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import {Login} from './Components/Login/Login';
-function App(props: any) {
+
+
+function App() {
 
 
     return (
@@ -20,11 +22,10 @@ function App(props: any) {
                 <HeaderContainer />
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    {/*<Route path='/dialogs' component={Dialogs}/>*/}
-                    {/*<Route path='/profile' component={Profile}/>*/}
-                    {/*<Route path='/music' component={Music}/>*/}
-                    {/*<Route path='/news' component={News}/>*/}
-                    {/*<Route path='/settings' component={Settings}/>*/}
+
+                    <Route path='/music' component={Music}/>
+                    <Route path='/news' component={News}/>
+                    <Route path='/settings' component={Settings}/>
                     <Route path="/dialogs"
                            render={() => <DialogsContainer  />}/>
                     <Route path="/profile/:userId?"

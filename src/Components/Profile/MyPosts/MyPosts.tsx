@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
@@ -10,7 +10,7 @@ const MyPosts = (props: any) => {
     let postsElements = props.posts.map((p: any) => <Post message={p.message} likesCount={p.likesCount}/>);
 
 
-    let newPostElement: any = React.createRef();
+    let newPostElement : RefObject<HTMLTextAreaElement> = React.createRef();
 
 
     const onAddPost = () => {
@@ -20,7 +20,7 @@ const MyPosts = (props: any) => {
     };
 
     let onPostChange = () => {
-        let text = newPostElement.current.value;
+        let text = newPostElement.current?.value;
         props.updateNewPostText(text);
 
     };

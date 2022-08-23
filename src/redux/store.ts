@@ -30,13 +30,13 @@ type ProfilePageType = {
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
-
+    sidebar: {}
 }
 //
 
 
-let store = {
-    _state: {
+let store  = {
+    _state:{
         profilePage: {
             posts: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 12},
