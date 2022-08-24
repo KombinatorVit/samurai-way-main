@@ -10,6 +10,7 @@ import {Provider} from 'react-redux';
         <BrowserRouter>
 
             <Provider store={store}>
+
                 <App />
             </Provider>
         </BrowserRouter>,
