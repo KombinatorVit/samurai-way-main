@@ -43,6 +43,7 @@ export const getAuthUserData = () => (dispatch:any) => {
 
 // @ts-ignore
 export const login = (email, password, rememberMe) => (dispatch) => {
+    // @ts-ignore
     authAPI.login(email, password, rememberMe)
         .then((response:any) => {
             if (response.data.resultCode === 0) {
@@ -52,6 +53,7 @@ export const login = (email, password, rememberMe) => (dispatch) => {
 }
 
 export const logout = () => (dispatch:any) => {
+    // @ts-ignore
     authAPI.logout()
         .then((response:any) => {
             if (response.data.resultCode === 0) {
