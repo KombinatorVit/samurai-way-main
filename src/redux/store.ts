@@ -9,7 +9,6 @@ type MessagesType = {
 export type DialogsType = {
     id: number
     name: string
-    newMessageBody:string
 }
 export type PostType = {
     id: number
@@ -19,6 +18,7 @@ export type PostType = {
 type DialogsPageType = {
     messages: Array<MessagesType>
     dialogs: Array<DialogsType>
+    newMessageBody:string
 
 }
 
@@ -33,9 +33,15 @@ export type StateType = {
     sidebar: {}
 }
 //
+export type StoreType = {
+    _state: StateType
+    _callSubscriber: (any:any)=> void
+    getState: ()=> void
+    subscribe: (callback : ()=> void)=> void
+    dispatch: (action: any)=> void
+}
 
-
-let store  = {
+let store : StoreType  = {
     _state:{
         profilePage: {
             posts: [
@@ -68,7 +74,7 @@ let store  = {
         sidebar: {},
     },
 
-    _callSubscriber(props: any) {
+    _callSubscriber(props) {
         console.log('State is changed');
     },
     getState() {
@@ -79,7 +85,7 @@ let store  = {
     },
 
 
-    dispatch(action: any) {
+    dispatch(action) {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
