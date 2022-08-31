@@ -4,36 +4,31 @@ import Post from './Post/Post';
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
+import AddPostForm, {AddPostFormValuesType} from './AddPostForm/AddPostForm';
+import {PostType} from '../../../types/types';
 
-const maxLength10 = maxLengthCreator(10);
 
-let AddNewPostForm = (props: any) => {
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field name="newPostText" component={Textarea} placeholder={"Post message"}
-                   validate={[required, maxLength10]} />        </div>
-        <div>
-            <button>Add post</button>
-        </div>
-    </form>;
+export type MapPropsType = {
+    posts: Array<PostType>
+}
+export type DispatchPropsType = {
+    addPost: (newPostText: string) => void
 }
 
-let AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostForm);
-
-const MyPosts = (props: any) => {
+const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
     let postsElements =
-        props.posts.map( (p:any) => <Post message={p.message} likesCount={p.likesCount}/>);
+        [...props.posts]
+            .reverse()
+            .map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>);
 
-    let newPostElement = React.createRef();
-
-    let onAddPost = (values:any) => {
+    let onAddPost = (values: AddPostFormValuesType) => {
         props.addPost(values.newPostText);
     }
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
-            <AddNewPostFormRedux onSubmit={onAddPost} />
+            <AddPostForm onSubmit={onAddPost}/>
             <div className={s.posts}>
                 {postsElements}
             </div>
@@ -41,6 +36,6 @@ const MyPosts = (props: any) => {
     )
 }
 
+const MyPostsMemorized = React.memo(MyPosts);
 
-
-export default MyPosts;
+export default MyPostsMemorized;

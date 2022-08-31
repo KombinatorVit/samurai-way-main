@@ -1,8 +1,7 @@
-import * as axios from 'axios';
+import axios from "axios";
+import {UserType} from '../types/types';
 
-
-// @ts-ignore
-const instance = axios.create({
+export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers:     {
@@ -10,39 +9,22 @@ const instance = axios.create({
     }
 });
 
-
-export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then((response: any) => {
-                return response.data;
-            });
-    },
-
-    follow(userId:number) {
-        return instance.post(`follow/${userId}`)    },
-    unfollow(userId:number) {
-        return instance.delete(`follow/${userId}`)    },
-    getProfile(userId:number) {
-        console.warn('Obsolete method. Please profileAPI object.')
-        return profileAPI.getProfile(userId);
-    }
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1
 }
 
-export const profileAPI = {
-    getProfile(userId:number) {
-        return instance.get(`profile/` + userId);
-    },
-    getStatus(userId:number) {
-        return instance.get(`profile/status/` + userId);
-    },
-    updateStatus(status:number) {
-        return instance.put(`profile/status`, { status: status });
-    }
+export enum ResultCodeForCapcthaEnum {
+    CaptchaIsRequired = 10
 }
 
-export const authAPI = {
-    me() {
-        return instance.get(`auth/me`)
-    }
+export type GetItemsType = {
+    items: Array<UserType>
+    totalCount: number
+    error: string | null
+}
+export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
+    data: D
+    messages: Array<string>
+    resultCode: RC
 }

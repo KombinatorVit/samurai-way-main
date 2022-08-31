@@ -1,38 +1,50 @@
-const SEND_MESSAGE = 'SEND_MESSAGE';
+import {InferActionsTypes} from './redux-store';
+
+type DialogType = {
+    id: number
+    name: string
+}
+type MessageType = {
+    id: number
+    message: string
+}
 
 let initialState = {
-    messages: [
-        {id: 1, message: 'Hi'},
-        {id: 2, message: 'Hi Hi Hi'},
-        {id: 3, message: 'Yo'},
-        {id: 4, message: 'Yo'},
-        {id: 5, message: 'Yo'}],
     dialogs: [
         {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Vit'},
-        {id: 3, name: 'Kata'},
-        {id: 4, name: 'Sveta'},
-        {id: 5, name: 'Bob'},
-        {id: 6, name: 'Misha'}],
-    newMessageBody: ''
+        {id: 2, name: 'Andrew'},
+        {id: 3, name: 'Sveta'},
+        {id: 4, name: 'Sasha'},
+        {id: 5, name: 'Viktor'},
+        {id: 6, name: 'Valera'}
+    ] as Array<DialogType>,
+    messages: [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'How is your it-kamasutra?'},
+        {id: 3, message: 'Yo'},
+        {id: 4, message: 'Yo'},
+        {id: 5, message: 'Yo'}
+    ] as Array<MessageType>
+}
 
-};
-
-const dialogsReducer = (state: any = initialState, action: any) => {
-
+const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-
-
-        case SEND_MESSAGE:
+        case 'SN/DIALOGS/SEND_MESSAGE':
             let body = action.newMessageBody;
             return {
                 ...state,
-                messages: [...state.messages, {id: 6, message: body}],
+                messages: [...state.messages, {id: 6, message: body}]
             };
         default:
             return state;
     }
-};
+}
 
-export const sendMessageCreator = (newMessageBody:any) => ({type: SEND_MESSAGE, newMessageBody})
+export const actions = {
+    sendMessage: (newMessageBody: string) => ({type: 'SN/DIALOGS/SEND_MESSAGE', newMessageBody} as const)
+}
+
 export default dialogsReducer;
+
+export type InitialStateType = typeof initialState
+type ActionsType = InferActionsTypes<typeof actions>

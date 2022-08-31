@@ -1,21 +1,40 @@
 import React, {Component} from 'react';
 import './App.css';
-import {Route, withRouter} from "react-router-dom";
-import LoginPage from './Components/Login/Login'
-import {connect} from "react-redux";
-import {compose} from "redux";
-import Preloader from './Components/common/Preloader/Preloader';
-import HeaderContainer from './Components/Header/HeaderContainer';
 import Navbar from './Components/Navbar/Navbar';
-import DialogsContainer from './Components/Dialogs/DialogsContainer';
-import ProfileContainer from './Components/Profile/ProfileContainer';
-import UsersContainer from './Components/Users/UsersContainer';
-import {initializeApp} from './redux/app-reducer';
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
+
+import UsersContainer from "./Components/Users/UsersContainer";
+import HeaderContainer from "./Components/Header/HeaderContainer";
+import LoginPage from "./Components/Login/Login";
+import {connect, Provider} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./redux/app-reducer";
+import Preloader from "./Components/common/Preloader/Preloader";
+import store, {AppStateType} from "./redux/redux-store";
+import {withSuspense} from "./hoc/withSuspense";
+
+const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
+
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
+}
+
+const SuspendedDialogs = withSuspense(DialogsContainer);
+const SuspendedProfile = withSuspense(ProfileContainer);
 
 
-class App extends Component <any, any>{
+class App extends Component<MapPropsType & DispatchPropsType> {
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+        alert("Some error occured");
+    }
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
     }
 
     render() {
@@ -28,27 +47,46 @@ class App extends Component <any, any>{
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs'
-                           render={() => <DialogsContainer/>}/>
+                    <Switch>
+                        <Route exact path='/'
+                               render={() => <Redirect to={"/profile"}/>}/>
 
-                    <Route path='/profile/:userId?'
-                           render={() => <ProfileContainer/>}/>
+                        <Route path='/dialogs'
+                               render={() => <SuspendedDialogs /> }/>
 
-                    <Route path='/users'
-                           render={() => <UsersContainer/>}/>
+                        <Route path='/profile/:userId?'
+                               render={() => <SuspendedProfile /> }/>
 
-                    <Route path='/login'
-                           render={() => <LoginPage/>}/>
+                        <Route path='/users'
+                               render={() => <UsersContainer pageTitle={"Самураи"}/>}/>
+
+                        <Route path='/login'
+                               render={() => <LoginPage/>}/>
+
+                        <Route path='*'
+                               render={() => <div>404 NOT FOUND</div>}/>
+                    </Switch>
+
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
-export default compose(
+let AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
+
+const SamuraiJSApp: React.FC = () => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </BrowserRouter>
+}
+
+export default SamuraiJSApp;
