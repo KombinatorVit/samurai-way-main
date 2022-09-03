@@ -3,15 +3,15 @@ import './App.css';
 import Navbar from './Components/Navbar/Navbar';
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 
-import UsersContainer from "./Components/Users/UsersContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import LoginPage from "./Components/Login/Login";
+import {LoginPage} from "./Components/Login/LoginPage";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./Components/common/Preloader/Preloader";
 import store, {AppStateType} from "./redux/redux-store";
 import {withSuspense} from "./hoc/withSuspense";
+import { UsersPage } from './Components/Users/UsersContainer';
 
 const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
@@ -27,7 +27,7 @@ const SuspendedProfile = withSuspense(ProfileContainer);
 
 class App extends Component<MapPropsType & DispatchPropsType> {
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
-        alert("Some error occurred");
+        alert("Some error occured");
     }
     componentDidMount() {
         this.props.initializeApp();
@@ -58,7 +58,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                                render={() => <SuspendedProfile /> }/>
 
                         <Route path='/users'
-                               render={() => <UsersContainer pageTitle={"Самураи"}/>}/>
+                               render={() => <UsersPage pageTitle={"Самураи"}/>}/>
 
                         <Route path='/login'
                                render={() => <LoginPage/>}/>

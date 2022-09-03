@@ -1,8 +1,8 @@
-import React from 'react';
-import styles from "./users.module.css";
-import userPhoto from "../../assets/images/user.png";
-import {NavLink} from "react-router-dom";
-import {UserType} from '../../types/types';
+import React from 'react'
+import styles from './users.module.css'
+import userPhoto from '../../assets/images/user.png'
+import {NavLink} from 'react-router-dom'
+import {UserType} from '../../types/types'
 
 type PropsType = {
     user: UserType
@@ -11,7 +11,7 @@ type PropsType = {
     follow: (userId: number) => void
 }
 
-let User: React.FC<PropsType> = ({user, followingInProgress, unfollow, follow}) => {
+const User: React.FC<PropsType> = ({user, followingInProgress, unfollow, follow}) => {
     return (
         <div>
                 <span>
@@ -25,10 +25,14 @@ let User: React.FC<PropsType> = ({user, followingInProgress, unfollow, follow}) 
                         {user.followed
                             ? <button disabled={followingInProgress
                                 .some(id => id === user.id)}
-                                      onClick={() => { unfollow(user.id) }}>
+                                      onClick={() => {
+                                          unfollow(user.id)
+                                      }}>
                                 Unfollow</button>
                             : <button disabled={followingInProgress.some(id => id === user.id)}
-                                      onClick={() => { follow(user.id) }}>
+                                      onClick={() => {
+                                          follow(user.id)
+                                      }}>
                                 Follow</button>}
 
                     </div>
@@ -39,11 +43,11 @@ let User: React.FC<PropsType> = ({user, followingInProgress, unfollow, follow}) 
                         <div>{user.status}</div>
                     </span>
                     <span>
-                        <div>{"user.location.country"}</div>
-                        <div>{"user.location.city"}</div>
+                        <div>{'user.location.country'}</div>
+                        <div>{'user.location.city'}</div>
                     </span>
                 </span>
         </div>)
 }
 
-export default User;
+export default User

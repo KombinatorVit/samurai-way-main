@@ -3,7 +3,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {createField, Input, Textarea} from '../../common/FormsControls/FormsControls';
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {NewMessageFormValuesType} from '../Dialogs';
-import {LoginFormValuesType} from '../../Login/Login';
+import {LoginFormValuesType} from '../../Login/LoginPage';
 
 const maxLength50 = maxLengthCreator(50);
 
@@ -25,3 +25,4 @@ const AddMessageForm: React.FC<InjectedFormProps<NewMessageFormValuesType, Props
 }
 
 export default reduxForm<NewMessageFormValuesType>({form: 'dialog-add-message-form'})(AddMessageForm);
+

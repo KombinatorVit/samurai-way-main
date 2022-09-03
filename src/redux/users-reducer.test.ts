@@ -3,6 +3,7 @@ import usersReducer, {actions, InitialState} from './users-reducer'
 let state: InitialState;
 
 beforeEach(() => {
+    // @ts-ignore
     state = {
         users: [
             {
